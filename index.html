@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amboseli Green Ambassadors</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff87;
+            --primary-dark: #00cc6a;
+            --secondary: #1a1a1a;
+            --accent: #ff6b6b;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-dark: rgba(0, 0, 0, 0.1);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-primary: linear-gradient(135deg, #00ff87 0%, #60efff 100%);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Cursor */
+        body {
+            cursor: none;
+        }
+
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .cursor.hover {
+            width: 40px;
+            height: 40px;
+            background: var(--glass);
+            border-color: var(--primary);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 10px 30px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            background: rgba(0, 255, 135, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(0, 255, 135, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary {
+            background: var(--gradient-primary);
+            color: #0a0a0a;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 255, 135, 0.3);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 255, 135, 0.4);
+        }
+
+        .cta-secondary {
+            background: var(--glass);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            animation: float 15s ease-in-out infinite;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 60%;
+            right: 20%;
+            animation-delay: -5s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Sections */
+        section {
+            padding: 120px 0;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(0, 255, 135, 0.3);
+        }
+
+        /* Mission Grid */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .mission-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 2rem;
+            color: #0a0a0a;
+        }
+
+        .mission-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .mission-card p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        /* Programs Section */
+        .programs-container {
+            background: linear-gradient(135deg, rgba(0, 255, 135, 0.05) 0%, rgba(102, 126, 234, 0.05) 100%);
+            border-radius: 40px;
+            padding: 80px 60px;
+            margin: 60px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .program-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(0, 255, 135, 0.3);
+        }
+
+        .program-image {
+            height: 200px;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 255, 135, 0.2), rgba(102, 126, 234, 0.2));
+        }
+
+        .program-content {
+            padding: 30px;
+        }
+
+        .program-content h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .program-content p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Impact Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 40px;
+            background: var(--glass);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 135, 0.1), rgba(102, 126, 234, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(0, 255, 135, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Funding Section */
+        .funding-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .funding-hero {
+            text-align: center;
+            padding: 60px;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, rgba(0, 255, 135, 0.1), rgba(102, 126, 234, 0.1));
+        }
+
+        .funding-hero h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .funding-hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .funding-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .funding-stat {
+            text-align: center;
+        }
+
+        .funding-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .funding-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .funding-options {
+            margin-bottom: 60px;
+        }
+
+        .funding-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .funding-card {
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .funding-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 255, 135, 0.5);
+        }
+
+        .funding-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .funding-card h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .funding-card p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .donation-amounts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .amount-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .amount-btn:hover,
+        .amount-btn.selected {
+            background: var(--primary);
+            color: #0a0a0a;
+            border-color: var(--primary);
+        }
+
+        .donate-btn,
+        .subscribe-btn,
+        .partner-btn {
+            background: var(--gradient-primary);
+            color: #0a0a0a;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .donate-btn:hover,
+        .subscribe-btn:hover,
+        .partner-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 255, 135, 0.3);
+        }
+
+        .subscription-options {
+            margin-bottom: 25px;
+        }
+
+        .subscription-plan {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .subscription-plan:hover {
+            background: rgba(0, 255, 135, 0.1);
+            border-color: rgba(0, 255, 135, 0.3);
+        }
+
+        .plan-amount {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .plan-impact {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .partnership-benefits {
+            margin-bottom: 25px;
+        }
+
+        .benefit {
+            padding: 10px 0;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: left;
+        }
+
+        .funding-transparency {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .funding-transparency h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .funding-transparency p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .transparency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+        }
+
+        .transparency-item {
+            text-align: center;
+        }
+
+        .transparency-percentage {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .transparency-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 135, 0.05), rgba(102, 126, 234, 0.05));
+            pointer-events: none;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 1rem;
+            color: white;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 255, 135, 0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .submit-button {
+            background: var(--gradient-primary);
+            color: #0a0a0a;
+            padding: 18px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 255, 135, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 0 30px;
+            margin-top: 120px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .social-links a {
+            width: 60px;
+            height: 60px;
+            background: var(--glass);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .social-links a:hover {
+            background: rgba(0, 255, 135, 0.2);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            section {
+                padding: 80px 20px;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mission-grid,
+            .programs-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form {
+                padding: 30px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-up {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Parallax effect */
+        .parallax {
+            transform: translateY(var(--scroll-y));
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">🌿 Amboseli Green</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Mission</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#impact">Impact</a></li>
+                <li><a href="#funding">Funding</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Amboseli Green Ambassadors</h1>
+            <p class="hero-subtitle">Pioneering conservation in Kenya's iconic Amboseli ecosystem through cutting-edge technology, community empowerment, and sustainable innovation</p>
+            <div class="cta-buttons">
+                <a href="#about" class="cta-primary">Explore Our Mission</a>
+                <a href="#funding" class="cta-secondary">Fund Our Work</a>
+                <a href="#contact" class="cta-secondary">Get Involved</a>
+            </div>
+            <div style="margin-top: 2rem; max-width: 700px; margin-left: auto; margin-right: auto; color: #fff; font-size: 1.15rem;">
+                <b>Be part of something bigger.</b> Amboseli Green Ambassadors is more than a movement—it's a family of changemakers. Together, we empower youth, restore nature, and build a legacy of hope. <a href="#about" style="color: #00ff87; text-decoration: underline;">Discover our mission below.</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" style="background: #111; color: #fff;">
+        <h2 class="section-title">Our Mission</h2>
+        <p class="section-subtitle">Empowering Communities. Protecting Nature.</p>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.2rem; color: #fff; margin-bottom: 40px;">
+            <b>We believe in a future where people and nature thrive together.</b> Our mission is to ignite a passion for conservation in every heart—especially among youth and local communities. By blending tradition with innovation, we protect Amboseli’s wild beauty, nurture tomorrow’s leaders, and create lasting change from the ground up.<br><br>
+            <b>Our Vision:</b> A vibrant Amboseli where every person is a guardian of the land and wildlife.<br><br>
+            <b>Our Values:</b> Respect, inclusivity, transparency, and a relentless commitment to future generations. We trust in the creativity and leadership of our youth.<br><br>
+            <b>Our Approach:</b> We unite schools, families, and local leaders, combining hands-on action with new ideas. Together, we build climate resilience and unlock opportunity—while honoring Amboseli’s natural heritage.
+        </div>
+        <div class="mission-grid">
+            <div class="mission-card glass-card">
+                <div class="mission-icon">🐘</div>
+                <h3>Wildlife Conservation</h3>
+                <p>Leveraging advanced monitoring technology and community partnerships to protect Amboseli's iconic elephants and diverse wildlife through innovative anti-poaching strategies and habitat preservation.</p>
+            </div>
+            <div class="mission-card glass-card">
+                <div class="mission-icon">🌱</div>
+                <h3>Environmental Education</h3>
+                <p>Empowering the next generation through immersive educational programs, digital learning platforms, and hands-on conservation experiences that create lasting environmental stewardship.</p>
+            </div>
+            <div class="mission-card glass-card">
+                <div class="mission-icon">🏔️</div>
+                <h3>Ecosystem Restoration</h3>
+                <p>Implementing cutting-edge restoration techniques to rehabilitate degraded landscapes, enhance biodiversity corridors, and maintain the delicate balance of the Amboseli ecosystem.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs">
+        <div class="programs-container">
+            <h2 class="section-title">Our Key Initiatives</h2>
+            <p class="section-subtitle">Innovation and community at the heart of everything we do.</p>
+            <div style="max-width: 900px; margin: 0 auto; font-size: 1.1rem; color: #fff; margin-bottom: 40px;">
+                <b>We turn ideas into action.</b> Our programs are designed to inspire, educate, and empower. Every project is a step toward a greener, more resilient Amboseli—driven by the energy of our youth and the wisdom of our communities.
+                <ul style="text-align:left; max-width:600px; margin:0 auto; margin-top: 1em;">
+                    <li><b>Environmental Education:</b> Workshops, school clubs, and green talks that spark curiosity and leadership in the next generation.</li>
+                    <li><b>Tree Planting:</b> Thousands of native trees planted each year, restoring habitats and fighting climate change.</li>
+                    <li><b>Clean-Up Drives:</b> Community-led efforts to create plastic-free villages and protect Amboseli’s landscapes.</li>
+                    <li><b>Eco-Innovation:</b> Upcycling, renewable energy, and sustainable agriculture—creative solutions for people and planet.</li>
+                    <li><b>Advocacy:</b> Amplifying local voices and championing green policies for lasting impact.</li>
+                </ul>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card fade-in">
+                    <div class="program-image">🌍</div>
+                    <div class="program-content">
+                        <h3>Smart Conservation Network</h3>
+                        <p>AI-powered monitoring systems and IoT sensors that track wildlife movement, detect threats in real-time, and optimize conservation resource allocation.</p>
+                    </div>
+                </div>
+                <div class="program-card fade-in">
+                    <div class="program-image">🎓</div>
+                    <div class="program-content">
+                        <h3>Digital Green Academy</h3>
+                        <p>Virtual reality conservation experiences, drone piloting workshops, and coding bootcamps that prepare youth for careers in environmental technology.</p>
+                    </div>
+                </div>
+                <div class="program-card fade-in">
+                    <div class="program-image">🌿</div>
+                    <div class="program-content">
+                        <h3>Regenerative Landscape</h3>
+                        <p>Precision agriculture techniques, native species propagation labs, and carbon sequestration projects that restore ecological balance while generating income.</p>
+                    </div>
+                </div>
+                <div class="program-card fade-in">
+                    <div class="program-image">♻️</div>
+                    <div class="program-content">
+                        <h3>Sustainable Tourism Tech</h3>
+                        <p>Blockchain-based eco-tourism platforms, carbon offset tracking, and virtual safari experiences that maximize conservation impact while minimizing footprint.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="fade-in">
+        <h2 class="section-title">Our Impact</h2>
+        <p class="section-subtitle">Real results. Real change. Real hope for Amboseli.</p>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; color: #fff; margin-bottom: 40px;">
+            <b>Together, we’re making a difference:</b>
+            <ul style="text-align:left; max-width:600px; margin:0 auto;">
+                <li><b>10,000+ Trees Planted:</b> Revitalizing Amboseli’s forests and supporting biodiversity.</li>
+                <li><b>50+ Schools Engaged:</b> Inspiring students and teachers to lead environmental action.</li>
+                <li><b>Plastic-Free Villages in Progress:</b> Reducing waste and setting new standards for community health.</li>
+                <li><b>Youth Empowerment:</b> Hundreds of young people trained as environmental ambassadors, leading change in their communities.</li>
+                <li><b>Wildlife Protection:</b> Improved habitats and reduced threats for Amboseli’s iconic species.</li>
+            </ul>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card slide-up">
+                <div class="stat-number">10,000+</div>
+                <div class="stat-label">Trees Planted</div>
+            </div>
+            <div class="stat-card slide-up">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Schools Engaged</div>
+            </div>
+            <div class="stat-card slide-up">
+                <div class="stat-number">Plastic-free</div>
+                <div class="stat-label">Villages in Progress</div>
+            </div>
+            <div class="stat-card slide-up">
+                <div class="stat-number">100s</div>
+                <div class="stat-label">Youth Ambassadors</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Funding & Support Section -->
+    <section id="funding" class="fade-in">
+        <h2 class="section-title">Funding & Support</h2>
+        <p class="section-subtitle">Your gift is a seed for a greener tomorrow.</p>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; color: #fff; margin-bottom: 40px;">
+            <b>Every contribution counts.</b> Your support plants trees, educates children, and restores hope. We promise transparency and impact—most of every donation goes straight to the field, creating real, lasting change for Amboseli’s people and nature.<br><br>
+            <b>One-Time Gifts:</b> Help us respond to urgent needs and launch new initiatives.<br>
+            <b>Monthly Giving:</b> Provide steady support for ongoing education and conservation.<br>
+            <b>Corporate Partnerships:</b> Achieve your sustainability goals while making a meaningful impact.<br><br>
+            <i>Thank you for believing in a greener future!</i>
+        </div>
+        
+        <div class="funding-container">
+            <div class="funding-hero glass-card">
+                <div class="funding-content">
+                    <h3>Your Support Powers Conservation</h3>
+                    <p>Every contribution directly funds wildlife protection, community education, and ecosystem restoration in the Amboseli region. Join us in preserving Kenya's natural heritage for future generations.</p>
+                    <div class="funding-stats">
+                        <div class="funding-stat">
+                            <span class="funding-number">$50</span>
+                            <span class="funding-label">Plants 100 native trees</span>
+                        </div>
+                        <div class="funding-stat">
+                            <span class="funding-number">$150</span>
+                            <span class="funding-label">Trains 1 youth ambassador</span>
+                        </div>
+                        <div class="funding-stat">
+                            <span class="funding-number">$500</span>
+                            <span class="funding-label">Funds 1 month of wildlife monitoring</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="funding-options">
+                <div class="funding-grid">
+                    <div class="funding-card glass-card">
+                        <div class="funding-icon">💚</div>
+                        <h4>One-Time Donation</h4>
+                        <p>Make an immediate impact with a single contribution to our conservation efforts.</p>
+                        <div class="donation-amounts">
+                            <button class="amount-btn" data-amount="25">$25</button>
+                            <button class="amount-btn" data-amount="50">$50</button>
+                            <button class="amount-btn" data-amount="100">$100</button>
+                            <button class="amount-btn" data-amount="250">$250</button>
+                        </div>
+                        <button class="donate-btn">Donate Now</button>
+                    </div>
+
+                    <div class="funding-card glass-card">
+                        <div class="funding-icon">🔄</div>
+                        <h4>Monthly Partnership</h4>
+                        <p>Become a sustained partner in our mission with recurring monthly support.</p>
+                        <div class="subscription-options">
+                            <div class="subscription-plan">
+                                <span class="plan-amount">$15/month</span>
+                                <span class="plan-impact">Trees & Education</span>
+                            </div>
+                            <div class="subscription-plan">
+                                <span class="plan-amount">$50/month</span>
+                                <span class="plan-impact">Wildlife Protection</span>
+                            </div>
+                            <div class="subscription-plan">
+                                <span class="plan-amount">$100/month</span>
+                                <span class="plan-impact">Community Programs</span>
+                            </div>
+                        </div>
+                        <button class="subscribe-btn">Start Monthly Support</button>
+                    </div>
+
+                    <div class="funding-card glass-card">
+                        <div class="funding-icon">🏢</div>
+                        <h4>Corporate Partnership</h4>
+                        <p>Partner with us to achieve your sustainability goals while making a meaningful impact.</p>
+                        <div class="partnership-benefits">
+                            <div class="benefit">✓ Carbon offset programs</div>
+                            <div class="benefit">✓ Employee engagement</div>
+                            <div class="benefit">✓ Brand alignment</div>
+                            <div class="benefit">✓ Impact reporting</div>
+                        </div>
+                        <button class="partner-btn">Explore Partnership</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="funding-transparency glass-card">
+                <h3>Transparency & Impact</h3>
+                <p>We believe in complete transparency. Here's how your donations make a difference:</p>
+                <div class="transparency-grid">
+                    <div class="transparency-item">
+                        <div class="transparency-percentage">75%</div>
+                        <div class="transparency-label">Direct Conservation</div>
+                    </div>
+                    <div class="transparency-item">
+                        <div class="transparency-percentage">15%</div>
+                        <div class="transparency-label">Education Programs</div>
+                    </div>
+                    <div class="transparency-item">
+                        <div class="transparency-percentage">10%</div>
+                        <div class="transparency-label">Operations</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" style="background: #111; color: #fff;">
+        <div class="contact-container">
+            <h2 class="section-title">Join the Movement!</h2>
+            <p class="section-subtitle" style="color: #fff;">We’re always excited to welcome new friends, partners, and supporters. Whether you want to volunteer, donate, or collaborate, your passion can help shape Amboseli’s future. Reach out, share your ideas, or simply say hello—together, we can make a world of difference.<br><br>
+            <b>Email:</b> <a href="mailto:samuellekato91@gmail.com" style="color:#00ff87;">samuellekato91@gmail.com</a><br>
+            <b>Phone:</b> <a href="tel:+254710334396" style="color:#00ff87;">+254710334396</a><br>
+            <b>Visit:</b> Amboseli, Kenya<br>
+            Or simply fill out the contact form below—we’ll get back to you soon!</p>
+            <div class="contact-form">
+                <form>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="interest">How would you like to contribute?</label>
+                        <select id="interest" name="interest" required>
+                            <option value="">Select your interest</option>
+                            <option value="volunteer">Volunteer Program</option>
+                            <option value="donate">Financial Support</option>
+                            <option value="partner">Strategic Partnership</option>
+                            <option value="education">Educational Initiative</option>
+                            <option value="tech">Technology Collaboration</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Share your vision for conservation..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">🌿 Amboseli Green Ambassadors</div>
+            <p class="footer-description">Leading the future of conservation through innovation, community engagement, and sustainable practices in Kenya's precious Amboseli ecosystem.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">📘</a>
+                <a href="#" aria-label="Twitter">🐦</a>
